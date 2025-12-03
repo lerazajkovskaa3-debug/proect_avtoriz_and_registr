@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+
+<header class="top-bar">
+    <div class="container header-inner">
+        <a href="#" class="logo">
+            <img src="img/logocbk.png" alt="Логотип ЧБК">
+        </a>
+
+        <nav class="main-nav">
+            <a href="#" class="nav-link">ГЛАВНАЯ</a>
+
+            <div class="catalog-nav">
+                <button type="button" class="catalog-toggle" aria-expanded="false">
+                    КАТАЛОГ
+                    <img src="img/Polygon_2.svg" alt="" class="catalog-arrow">
+                </button>
+
+                <div class="catalog-menu">
+                    <a href="#" class="catalog-item">ФУТБОЛКИ</a>
+                    <a href="#" class="catalog-item">МАЙКИ</a>
+                    <a href="#" class="catalog-item">КОФТЫ</a>
+                    <a href="#" class="catalog-item">МЯЧИ</a>
+                    <a href="#" class="catalog-item">СУВЕНИРЫ</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-icons">
+            <button class="icon-btn" aria-label="Поиск">
+                <img src="img/lupa.png" alt="">
+            </button>
+            <button class="icon-btn" aria-label="Корзина">
+                <img src="img/card.png" alt="">
+            </button>
+            <button class="icon-btn" aria-label="Профиль">
+                <img src="img/ghoul.png" alt="">
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="page">
+    <div class="container auth-wrapper">
+        <div class="auth-tabs">
+            <span class="tab tab-login active">ВХОД</span>
+            <a class="tab tab-register" href="register.html">РЕГИСТРАЦИЯ</a>
+        </div>
+
+        <form class="auth-form">
+            <div class="form-group">
+                <input id="login-phone" type="tel" name="phone" placeholder="Номер телефона*" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Пароль*" required>
+            </div>
+            <button type="submit" class="btn-primary">ВОЙТИ</button>
+        </form>
+    </div>
+</main>
+<script src="https://unpkg.com/imask"></script>
+<script>
+    const phoneInput = document.getElementById('login-phone');
+
+    if (phoneInput) {
+        IMask(phoneInput, {
+            mask: '+{7}(000)000-00-00'
+        });
+    }
+</script>
+<script>
+(function () {
+    const catalogNav = document.querySelector('.catalog-nav');
+    const catalogBtn = document.querySelector('.catalog-toggle');
+    const catalogMenu = document.querySelector('.catalog-menu');
+    const arrow     = document.querySelector('.catalog-arrow');
+
+    if (!catalogNav || !catalogBtn || !catalogMenu || !arrow) return;
+
+    catalogBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpen = catalogMenu.classList.toggle('open');
+        catalogNav.classList.toggle('open', isOpen);
+        arrow.classList.toggle('open', isOpen);
+        catalogBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!catalogNav.contains(e.target)) {
+            catalogMenu.classList.remove('open');
+            catalogNav.classList.remove('open');
+            arrow.classList.remove('open');
+            catalogBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+})();
+</script>
+</body>
+</html>
